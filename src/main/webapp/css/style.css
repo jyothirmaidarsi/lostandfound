@@ -1,0 +1,338 @@
+/* =========================================================
+   Lost & Found – Modern Theme
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary:      #4f46e5;
+    --primary-dark: #4338ca;
+    --accent:       #06b6d4;
+    --success:      #059669;
+    --danger:       #dc2626;
+    --warning:      #d97706;
+    --text:         #1e293b;
+    --muted:        #64748b;
+    --border:       #e2e8f0;
+    --surface:      #ffffff;
+    --soft:         #f8fafc;
+    --radius:       14px;
+    --shadow-sm:    0 1px 3px rgba(15, 23, 42, .08);
+    --shadow-lg:    0 20px 45px -12px rgba(30, 41, 59, .25);
+}
+
+/* ===== Base ===== */
+* { box-sizing: border-box; }
+
+html {
+    min-height: 100%;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(79, 70, 229, .25), transparent 40%),
+        radial-gradient(circle at 85% 90%, rgba(6, 182, 212, .25), transparent 40%),
+        linear-gradient(135deg, #eef2ff 0%, #f0f9ff 100%);
+    background-attachment: fixed;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 780px;
+    margin: 40px auto;
+    padding: 36px 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    /* gradient accent strip on top of the card */
+    background:
+        linear-gradient(90deg, var(--primary), var(--accent)) top / 100% 5px no-repeat,
+        var(--surface);
+    animation: fadeUp .5s ease both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+::selection { background: rgba(79, 70, 229, .2); }
+
+/* ===== Headings ===== */
+h1 {
+    margin: 0 0 18px;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+h2 { font-size: 21px; font-weight: 700; color: var(--primary-dark); margin: 22px 0 8px; }
+h3 { font-size: 16px; font-weight: 600; color: var(--muted); margin: 18px 0 12px; }
+
+p { margin: 10px 0; }
+
+/* ===== Links ===== */
+a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color .2s;
+}
+a:hover { color: var(--accent); text-decoration: underline; }
+
+/* ===== Forms ===== */
+form { margin: 18px 0; }
+form br { display: none; }              /* spacing is handled by CSS now */
+
+label {
+    display: block;
+    margin: 18px 0 6px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .3px;
+    color: var(--muted);
+}
+form label:first-child { margin-top: 0; }
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=date],
+select,
+textarea {
+    display: block;
+    width: 100%;
+    padding: 11px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--soft);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    transition: border-color .2s, box-shadow .2s, background .2s;
+}
+input::placeholder, textarea::placeholder { color: #94a3b8; }
+
+input:hover, select:hover, textarea:hover { border-color: #cbd5e1; }
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    background: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(79, 70, 229, .15);
+}
+textarea { resize: vertical; min-height: 100px; }
+
+/* Search bar on viewItems.jsp */
+form[action="viewItems.jsp"] {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 14px;
+    background: var(--soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+form[action="viewItems.jsp"] input[type=text] { flex: 1 1 220px; width: auto; }
+form[action="viewItems.jsp"] select           { flex: 0 0 130px; width: auto; }
+
+/* Login & Register pages: narrow, centred */
+body:has(form[action="login"]),
+body:has(form[action="register"]) { max-width: 440px; }
+body:has(form[action="login"]) h1,
+body:has(form[action="register"]) h1 { text-align: center; }
+
+/* ===== Buttons ===== */
+button {
+    display: inline-block;
+    padding: 11px 22px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 6px 14px -4px rgba(79, 70, 229, .55);
+    transition: transform .15s, box-shadow .2s, filter .2s;
+}
+button:hover  { transform: translateY(-2px); box-shadow: 0 10px 20px -6px rgba(79, 70, 229, .6); filter: brightness(1.07); }
+button:active { transform: translateY(0); }
+
+/* full-width submit on login / register / report / claim forms */
+form[action="login"] button,
+form[action="register"] button,
+form[action="reportLostItem"] button,
+form[action="reportFoundItem"] button,
+form[action="submitClaim"] button { width: 100%; margin-top: 22px; padding: 13px; }
+
+/* Approve / Reject buttons inside tables */
+td form { margin: 0 0 8px; }
+td form button { padding: 8px 14px; font-size: 13px; box-shadow: none; }
+td form input[type=hidden][value=approve] ~ button { background: linear-gradient(135deg, #10b981, var(--success)); }
+td form input[type=hidden][value=reject]  ~ button { background: linear-gradient(135deg, #f87171, var(--danger)); }
+td form input[type=text] { margin-bottom: 8px; padding: 8px 10px; }
+
+/* Logout button */
+form[action="logout"] button {
+    background: #fff;
+    color: var(--danger);
+    border: 1.5px solid #fecaca;
+    box-shadow: none;
+}
+form[action="logout"] button:hover { background: #fef2f2; box-shadow: none; }
+
+/* ===== Home page buttons (index.jsp) ===== */
+h3 ~ a[href*="register"],
+h3 ~ a[href*="login"] {
+    display: inline-block;
+    min-width: 180px;
+    padding: 12px 26px;
+    text-align: center;
+    border-radius: 10px;
+    transition: transform .15s, box-shadow .2s;
+}
+h3 ~ a[href*="register"] {
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    box-shadow: 0 8px 18px -6px rgba(79, 70, 229, .55);
+}
+h3 ~ a[href*="login"] { color: var(--primary); border: 2px solid var(--primary); }
+h3 ~ a[href*="register"]:hover,
+h3 ~ a[href*="login"]:hover { transform: translateY(-2px); text-decoration: none; }
+h3 ~ a[href*="register"]:hover { color: #fff; }
+h3 ~ a[href*="login"]:hover    { background: var(--primary); color: #fff; }
+
+/* ===== Dashboard menu tiles (dashboard.jsp) ===== */
+h3 ~ p > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    color: var(--text);
+    background: var(--soft);
+    border: 1.5px solid var(--border);
+    border-left: 5px solid var(--primary);
+    border-radius: 12px;
+    transition: transform .2s, box-shadow .2s, border-color .2s, background .2s;
+}
+h3 ~ p > a::after { content: "\2192"; color: var(--primary); font-size: 18px; transition: transform .2s; }
+h3 ~ p > a:hover {
+    background: #fff;
+    border-left-color: var(--accent);
+    box-shadow: var(--shadow-sm), 0 10px 22px -10px rgba(79, 70, 229, .45);
+    transform: translateX(4px);
+    text-decoration: none;
+}
+h3 ~ p > a:hover::after { transform: translateX(4px); }
+
+/* ===== Messages ===== */
+.success, p[style*="green"],
+.error,   p[style*="red"] {
+    position: relative;
+    padding: 13px 16px 13px 44px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    animation: fadeUp .4s ease both;
+}
+.success, p[style*="green"] {
+    background: #ecfdf5;
+    color: #065f46 !important;
+    border: 1px solid #a7f3d0;
+    border-left: 5px solid var(--success);
+}
+.error, p[style*="red"] {
+    background: #fef2f2;
+    color: #991b1b !important;
+    border: 1px solid #fecaca;
+    border-left: 5px solid var(--danger);
+}
+.success::before, p[style*="green"]::before,
+.error::before,   p[style*="red"]::before {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 700;
+}
+.success::before, p[style*="green"]::before { content: "\2713"; color: var(--success); }
+.error::before,   p[style*="red"]::before   { content: "!";      color: var(--danger); }
+
+/* an error inside a table cell should stay a normal cell */
+td.error, td[style*="red"] { padding: 12px; background: #fef2f2; border-left: 0; }
+td.error::before, td[style*="red"]::before { content: none; }
+
+/* ===== Tables =====
+   !important is used so these win over the small <style> blocks
+   inside viewItems.jsp, claimRequests.jsp and myClaims.jsp */
+table {
+    width: 100%;
+    margin-top: 16px;
+    font-size: 14px;
+    border-collapse: separate !important;
+    border-spacing: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+th {
+    padding: 13px 14px !important;
+    text-align: left !important;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(90deg, var(--primary), var(--primary-dark)) !important;
+    border: 0 !important;
+}
+
+td {
+    padding: 12px 14px !important;
+    text-align: left !important;
+    vertical-align: top;
+    border: 0 !important;
+    border-bottom: 1px solid var(--border) !important;
+    transition: background .15s;
+}
+tr:last-child td { border-bottom: 0 !important; }
+tr:nth-child(even) td { background: var(--soft); }
+tr:hover td { background: #eef2ff; }
+
+td a { padding: 4px 12px; background: #eef2ff; border-radius: 999px; font-size: 13px; }
+td a:hover { background: var(--primary); color: #fff; text-decoration: none; }
+
+/* ===== Optional status badges =====
+   Use like: <span class="badge badge-found">Found</span> */
+.badge {
+    display: inline-block;
+    padding: 3px 11px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 999px;
+    background: #e2e8f0;
+    color: #334155;
+}
+.badge-lost, .badge-rejected              { background: #fee2e2; color: #991b1b; }
+.badge-found, .badge-approved, .badge-returned { background: #d1fae5; color: #065f46; }
+.badge-pending                            { background: #fef3c7; color: #92400e; }
+
+/* ===== Small text ===== */
+small { color: var(--muted); font-size: 12px; }
+b { font-weight: 600; }
+
+/* ===== Phones ===== */
+@media (max-width: 700px) {
+    body { margin: 12px; padding: 22px 18px; border-radius: 16px; }
+    h1 { font-size: 24px; }
+    form[action="viewItems.jsp"] select { flex: 1 1 100%; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+}
